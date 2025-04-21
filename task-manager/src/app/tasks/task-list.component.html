@@ -1,0 +1,23 @@
+<div class="task-filters">
+  <button (click)="filter('')">All</button>
+  <button (click)="filter('high')">High</button>
+  <button (click)="filter('medium')">Medium</button>
+  <button (click)="filter('low')">Low</button>
+</div>
+
+<table class="task-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Priority</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of filteredTasks">
+      <td>{{ task.title }}</td>
+      <td>{{ task.priority }}</td>
+      <td>{{ task.status }}</td>
+    </tr>
+  </tbody>
+</table>

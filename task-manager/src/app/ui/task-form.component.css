@@ -1,0 +1,14 @@
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+input, textarea, select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
