@@ -1,11 +1,18 @@
-<div class="auth-container">
-  <h2>Sign in</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <input formControlName="email" type="email" placeholder="Email">
-    <input formControlName="password" type="password" placeholder="Password">
-    <button type="submit">Sign in</button>
-  </form>
-  <div class="auth-links">
-    <a routerLink="/register">Create account</a>
+<div class="login-container">
+  <div class="login-card">
+    <img src="assets/logo.png" alt="Logo" class="logo" *ngIf="false">
+    <h2 class="login-title">Вход в систему</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+      <input formControlName="email" type="email" placeholder="Email" />
+      <input formControlName="password" type="password" placeholder="Пароль" />
+      <button type="submit">Войти</button>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+    </form>
+
+    <a class="forgot" routerLink="/register">Нет аккаунта? Зарегистрируйтесь</a>
   </div>
 </div>

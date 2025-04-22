@@ -1,4 +1,3 @@
-// src/app/charts/charts.component.ts
 import { Component } from '@angular/core';
 import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
