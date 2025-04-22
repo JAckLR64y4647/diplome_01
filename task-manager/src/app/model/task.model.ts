@@ -1,8 +1,6 @@
 export interface Task {
   id: string;
   title: string;
-  description: string;
-  status: 'pending' | 'in-progress' | 'completed';
-  createdAt: string;
-  updatedAt: string;
+  priority: 'low' | 'medium' | 'high';
+  status: 'design' | 'development' | 'testing';
 }

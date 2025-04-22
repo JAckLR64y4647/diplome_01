@@ -37,6 +37,9 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .menu a i {
@@ -44,7 +47,14 @@
 }
 
 .menu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
   color: #4fc3f7;
+}
+
+.menu a.active {
+  background-color: #4fc3f7;
+  color: #2e3a59;
+  font-weight: bold;
 }
 
 .main-panel {
