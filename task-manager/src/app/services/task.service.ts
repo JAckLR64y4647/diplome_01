@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// Описуємо структуру завдання для типізації
 interface Task {
   id: number;
   title: string;
@@ -17,16 +16,14 @@ interface Task {
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'https://your-api-url.com/tasks'; // Заміна на реальний API
+  private apiUrl = 'https:///tasks';
 
   constructor(private http: HttpClient) {}
 
-  // Отримуємо завдання
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl);
   }
 
-  // Додаємо нове завдання
   addTask(task: Task): Observable<Task> {
     return this.http.post<Task>(this.apiUrl, task);
   }
