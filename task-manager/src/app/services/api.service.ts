@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://api.example.com';  // Замените на свой реальный URL API
+  private apiUrl = 'https://';
 
   constructor(private http: HttpClient) {}
 
@@ -33,23 +33,4 @@ export class AuthService {
     );
   }
 
-  // Пример использования другого эндпоинта
-  getProjectAssignees(): Observable<any> {
-    const url = `${this.apiUrl}/project-assignees`;  // Используем маршрут для получения ассигнованных проектов
-    return this.http.get(url).pipe(
-      catchError(err => {
-        return throwError(() => new Error('Ошибка при получении ассигнованных проектов'));
-      })
-    );
-  }
-
-  // Пример использования еще одного эндпоинта
-  getStatuses(): Observable<any> {
-    const url = `${this.apiUrl}/statuses`;  // Используем маршрут для получения статусов
-    return this.http.get(url).pipe(
-      catchError(err => {
-        return throwError(() => new Error('Ошибка при получении статусов'));
-      })
-    );
-  }
 }
