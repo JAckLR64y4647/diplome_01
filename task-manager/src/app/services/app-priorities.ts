@@ -1,17 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskService } from '../services/task.service'; 
+import { TaskService } from '../services/task.service';
 import { Observable } from 'rxjs';
-
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  status: 'design' | 'development' | 'testing';
-  priority: 'low' | 'medium' | 'high';
-  assignedTo: string;
-  dueDate: string;
-}
 
 @Component({
   selector: 'app-task-board',
@@ -22,8 +12,9 @@ interface Task {
 })
 export class TaskBoardComponent implements OnInit {
   columns = ['design', 'development', 'testing'];
-  tasks$!: Observable<Task[]>;
-  groupedTasks: { [key: string]: Task[] } = {};
+  tasks$: Observable<any[]> | undefined;
+
+  groupedTasks: { [key: string]: any[] } = {};
 
   constructor(private taskService: TaskService) {}
 
@@ -35,10 +26,10 @@ export class TaskBoardComponent implements OnInit {
     });
   }
 
-  private groupTasksByStatus(tasks: Task[]) {
+  private groupTasksByStatus(tasks: any[]) {
     this.groupedTasks = this.columns.reduce((acc, col) => {
       acc[col] = tasks.filter(task => task.status === col);
       return acc;
-    }, {} as { [key: string]: Task[] });
+    }, {} as any);
   }
 }

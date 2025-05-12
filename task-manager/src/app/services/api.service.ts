@@ -1,40 +1,55 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { MOCK_DATA } from '../mocks/mock-data';
+import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = 'https://api.example.com';  // Замените на свой реальный URL API
+
+  constructor(private http: HttpClient) {}
+
+  // Метод для логина
   login(email: string, password: string): Observable<any> {
-    const user = MOCK_DATA.users.find(u => u.email === email && u.password === password);
-    if (user) {
-      console.log('Мок-вход выполнен:', user);
-      return of({ message: 'Login successful', user });
-    } else {
-      return throwError(() => new Error('Неверный email или пароль'));
-    }
+    const url = `${this.apiUrl}/GET-roles-all?email=${email}&password=${password}`;
+
+    return this.http.get(url).pipe(
+      catchError(err => {
+        return throwError(() => new Error('Неверный email или пароль'));
+      })
+    );
   }
 
+  // Метод для регистрации
   register(userData: { name: string; email: string; password: string }): Observable<any> {
-    const exists = MOCK_DATA.users.some(u => u.email === userData.email);
-    if (exists) {
-      return throwError(() => new Error('Пользователь с таким email уже существует'));
-    }
+    const url = `${this.apiUrl}/GET-roles-all?name=${userData.name}&email=${userData.email}&password=${userData.password}`;
 
-    const newUser = {
-      user_id: MOCK_DATA.users.length + 1,
-      login: userData.email.split('@')[0],
-      surname: '',
-      name: userData.name,
-      email: userData.email,
-      password: userData.password,
-      role_id: 2
-    };
+    return this.http.get(url).pipe(
+      catchError(err => {
+        return throwError(() => new Error('Пользователь с таким email уже существует'));
+      })
+    );
+  }
 
-    MOCK_DATA.users.push(newUser);
-    console.log('Мок-регистрация нового пользователя:', newUser);
+  // Пример использования другого эндпоинта
+  getProjectAssignees(): Observable<any> {
+    const url = `${this.apiUrl}/project-assignees`;  // Используем маршрут для получения ассигнованных проектов
+    return this.http.get(url).pipe(
+      catchError(err => {
+        return throwError(() => new Error('Ошибка при получении ассигнованных проектов'));
+      })
+    );
+  }
 
-    return of({ message: 'Registration successful', user: newUser });
+  // Пример использования еще одного эндпоинта
+  getStatuses(): Observable<any> {
+    const url = `${this.apiUrl}/statuses`;  // Используем маршрут для получения статусов
+    return this.http.get(url).pipe(
+      catchError(err => {
+        return throwError(() => new Error('Ошибка при получении статусов'));
+      })
+    );
   }
 }
