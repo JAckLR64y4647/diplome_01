@@ -1,18 +1,32 @@
-import { Routes } from "@angular/router";
-import { UserManagementComponent } from "./admin/user-management.component";
-import { LoginComponent } from "./auth/login.component";
-import { RegisterComponent } from "./auth/register.component";
-import { ChartsComponent } from "./charts/charts.component";
-import { TaskBoardComponent } from "./tasks/task-board.component"; // <-- Kanban-доска
-import { WelcomeComponent } from "./welcome/welcome.component";
-import { TaskCreatorComponent } from "./tasks/task-creator.component";
+import { Routes } from '@angular/router';
+import { authGuard } from './auth/auth.guard';
+import { AuthComponent } from './auth/auth.component';
+import { MainLayoutComponent } from './layout/main-layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TaskBoardComponent } from './tasks/task-board/task-board.component';
+import { TaskDetailComponent } from './tasks/task-detail/task-detail.component';
 
 export const routes: Routes = [
-  { path: '', component: WelcomeComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'tasks', component: TaskBoardComponent },     // <-- Kanban доска
-  { path: 'tasks/new', component: TaskCreatorComponent },  // <-- Отдельная форма
-  { path: 'dashboard', component: ChartsComponent },
-  { path: 'admin', component: UserManagementComponent },
+  { 
+    path: 'login', 
+    component: AuthComponent,
+    data: { mode: 'login' }
+  },
+  { 
+    path: 'register', 
+    component: AuthComponent,
+    data: { mode: 'register' }
+  },
+  {
+    path: '',
+    component: MainLayoutComponent,
+    canActivate: [authGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'tasks', component: TaskBoardComponent },
+      { path: 'tasks/:id', component: TaskDetailComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  },
+  { path: '**', redirectTo: 'login' }
 ];

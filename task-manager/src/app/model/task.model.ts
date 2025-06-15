@@ -1,6 +1,11 @@
+export type TaskStatus = 'design' | 'development' | 'testing';
+
 export interface Task {
-  id: string;
+  id: number;
   title: string;
+  description: string;
+  status: TaskStatus;
   priority: 'low' | 'medium' | 'high';
-  status: 'design' | 'development' | 'testing';
+  assignedTo: string;
+  dueDate: string;
 }

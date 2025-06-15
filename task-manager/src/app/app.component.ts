@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, RouterModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: '<router-outlet></router-outlet>'
 })
-export class AppComponent {
-  title = 'task-manager';
+export class AppComponent implements OnInit {
+  constructor(private auth: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    //if (!this.auth.isAuthenticated()) {
+      //this.router.navigate(['/auth/login']);
+    //}
+  }
 }

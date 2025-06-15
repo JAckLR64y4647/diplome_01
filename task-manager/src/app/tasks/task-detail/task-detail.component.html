@@ -1,0 +1,47 @@
+<!-- task-detail.component.html -->
+<div class="task-detail-container">
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+  <div *ngIf="task && !isLoading" class="task-detail">
+    <div class="task-header">
+      <h2>
+        <span class="task-id">#{{ task.id }}</span>
+        <span *ngIf="!isEditing" class="task-title">{{ task.title }}</span>
+        <input *ngIf="isEditing" [(ngModel)]="editedTask.title" class="edit-title">
+      </h2>
+      
+      <div class="task-actions">
+        <button *ngIf="!isEditing" (click)="startEditing()">Edit</button>
+        <button *ngIf="isEditing" (click)="saveChanges()" [disabled]="isLoading">
+          {{ isLoading ? 'Saving...' : 'Save' }}
+        </button>
+        <button *ngIf="isEditing" (click)="cancelEditing()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="task-content">
+      <div class="task-section">
+        <h3>Description</h3>
+        <div *ngIf="!isEditing" class="task-description">
+          {{ task.description || 'No description' }}
+        </div>
+        <textarea *ngIf="isEditing" [(ngModel)]="editedTask.description"></textarea>
+      </div>
+
+      <div class="task-meta">
+        <div class="meta-item">
+          <span class="meta-label">Status:</span>
+          <span class="meta-value">{{ task.status }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Assignee:</span>
+          <span class="meta-value">{{ task.assignee }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Due Date:</span>
+          <span class="meta-value">{{ task.dueDate | date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,18 +2,51 @@
   <aside class="sidebar">
     <div class="logo">Task<span class="highlight">Manager</span></div>
     <ul class="menu">
-      <li><a routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in-alt"></i> Login</a></li>
-      <li><a routerLink="/register" routerLinkActive="active"><i class="fa fa-user-plus"></i> Register</a></li>
-      <li><a routerLink="/tasks" routerLinkActive="active"><i class="fa fa-tasks"></i> Tasks</a></li>
-      <li><a routerLink="/tasks/new" routerLinkActive="active"><i class="fa fa-plus-circle"></i> New Task</a></li>
-      <li><a routerLink="/dashboard" routerLinkActive="active"><i class="fa fa-chart-line"></i> Dashboard</a></li>
-      <li><a routerLink="/admin" routerLinkActive="active"><i class="fa fa-user-cog"></i> Admin</a></li>
+      <li *ngIf="(authStatus$ | async)?.isAuthenticated === false">
+        <a routerLink="/auth" routerLinkActive="active">
+          <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Auth
+        </a>
+      </li>
+      
+      <li *ngIf="(authStatus$ | async)?.isAuthenticated">
+        <a routerLink="/tasks" routerLinkActive="active">
+          <fa-icon [icon]="['fas', 'tasks']"></fa-icon> Tasks
+        </a>
+      </li>
+      
+      <li *ngIf="(authStatus$ | async)?.isAuthenticated">
+        <a routerLink="/tasks/new" routerLinkActive="active">
+          <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon> New Task
+        </a>
+      </li>
+      
+      <li *ngIf="(authStatus$ | async)?.isAuthenticated">
+        <a routerLink="/dashboard" routerLinkActive="active">
+          <fa-icon [icon]="['fas', 'chart-line']"></fa-icon> Dashboard
+        </a>
+      </li>
+      
+      <li *ngIf="(authStatus$ | async)?.isAdmin">
+        <a routerLink="/admin" routerLinkActive="active">
+          <fa-icon [icon]="['fas', 'user-cog']"></fa-icon> Admin
+        </a>
+      </li>
+      
+      <li *ngIf="(authStatus$ | async)?.isAuthenticated">
+        <a (click)="logout()" class="logout-btn">
+          <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon> Logout
+        </a>
+      </li>
     </ul>
   </aside>
 
   <div class="main-panel">
     <header class="topbar">
       <h1 class="page-title">Task Management System</h1>
+      <div class="user-info" *ngIf="(authStatus$ | async)?.isAuthenticated">
+        <span class="username">{{(authStatus$ | async)?.user?.name}}</span>
+        <img [src]="(authStatus$ | async)?.user?.avatar" class="user-avatar" alt="User avatar">
+      </div>
     </header>
 
     <main class="main-content">

@@ -1,0 +1,12 @@
+<div class="layout">
+  <app-navbar></app-navbar>
+  
+  <div class="content-wrapper">
+    <app-sidebar *ngIf="!isLoadingUser"></app-sidebar>
+    
+    <main class="main-content">
+      <app-loading-spinner *ngIf="isLoadingUser" message="Loading user data..."></app-loading-spinner>
+      <router-outlet *ngIf="!isLoadingUser"></router-outlet>
+    </main>
+  </div>
+</div>

@@ -1,82 +1,72 @@
-.app-container {
-  display: flex;
-  height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.sidebar {
-  width: 220px;
-  background: #2e3a59;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
-
-.logo {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  font-weight: bold;
-}
-
-.logo .highlight {
-  color: #4fc3f7;
-}
-
-.menu {
-  list-style: none;
-  padding: 0;
-}
-
-.menu li {
-  margin: 1rem 0;
-}
-
-.menu a {
-  color: #fff;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
+.btn {
+  padding: 8px 16px;
   border-radius: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  margin: 0 4px;
 }
 
-.menu a i {
-  margin-right: 0.5rem;
+.btn-primary {
+  background-color: #5a67d8;
+  color: white;
 }
 
-.menu a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #4fc3f7;
+.btn-primary:hover {
+  background-color: #4c51bf;
 }
 
-.menu a.active {
-  background-color: #4fc3f7;
-  color: #2e3a59;
+.btn-secondary {
+  background-color: #718096;
+  color: white;
+}
+
+/* Карточки задач */
+.task-card {
+  background: white;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Приоритеты */
+.priority {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
   font-weight: bold;
 }
 
-.main-panel {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+.priority-high {
+  background-color: #feb2b2;
+  color: #9b2c2c;
 }
 
-.topbar {
-  background: #f5f5f5;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.priority-medium {
+  background-color: #fbd38d;
+  color: #9c4221;
 }
 
-.page-title {
-  margin: 0;
-  font-size: 1.25rem;
+.priority-low {
+  background-color: #9ae6b4;
+  color: #276749;
 }
 
-.main-content {
-  padding: 2rem;
-  overflow-y: auto;
-  background-color: #fafafa;
-  flex-grow: 1;
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.task-card {
+  animation: fadeIn 0.3s ease-out;
 }

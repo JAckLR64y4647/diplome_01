@@ -1,0 +1,58 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>Dashboard Overview</h1>
+    <button (click)="loadDashboardData()" [disabled]="isLoading">
+      Refresh Data
+    </button>
+  </div>
+
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+  <div *ngIf="!isLoading" class="dashboard-grid">
+    <!-- Projects Stats -->
+    <div class="stats-card">
+      <h3>Projects</h3>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value">{{ projectsStats.total }}</span>
+          <span class="stat-label">Total</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ projectsStats.completed }}</span>
+          <span class="stat-label">Completed</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ projectsStats.inProgress }}</span>
+          <span class="stat-label">In Progress</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Tasks -->
+    <div class="tasks-card">
+      <h3>Recent Tasks</h3>
+      <div class="task-list">
+        <div *ngFor="let task of recentTasks" class="task-item">
+          <span class="task-title">{{ task.title }}</span>
+          <span class="task-status" [class]="'status-' + task.status">
+            {{ task.status }}
+          </span>
+        </div>
+      </div>
+      <a routerLink="/tasks" class="view-all">View All Tasks</a>
+    </div>
+
+    <!-- Completion Chart -->
+    <div class="chart-card">
+      <h3>Project Completion</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" 
+             [style.width.%]="getCompletionPercentage(projectsStats.completed, projectsStats.total)">
+        </div>
+      </div>
+      <div class="progress-text">
+        {{ getCompletionPercentage(projectsStats.completed, projectsStats.total) }}% Complete
+      </div>
+    </div>
+  </div>
+</div>
