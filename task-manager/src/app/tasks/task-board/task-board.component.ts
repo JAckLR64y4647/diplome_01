@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
-import { Task, TaskStatus } from '../../model/task.model'; // Импортируем TaskStatus
+import { Task, TaskStatus } from '../../model/task.model';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../loading-spinner.component';

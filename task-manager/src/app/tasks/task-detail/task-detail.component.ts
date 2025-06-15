@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TaskService } from '../task.service';
-import { Task } from '../models/task.model';
-import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
+import { TaskService } from '../../services/task.service';
+import { Task } from '../../model/task.model';
+import { LoadingSpinnerComponent } from '../../loading-spinner.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -32,8 +32,8 @@ export class TaskDetailComponent implements OnInit {
 
   loadTask(taskId: number) {
     this.isLoading = true;
-    this.taskService.getTask(taskId).subscribe({
-      next: task => {
+    this.taskService.getTaskById(taskId).subscribe({  // Changed from getTask to getTaskById
+      next: (task: Task) => {
         this.task = task;
         this.editedTask = { ...task };
         this.isLoading = false;
@@ -53,17 +53,16 @@ export class TaskDetailComponent implements OnInit {
     if (!this.task) return;
     
     this.isLoading = true;
-    // В реальном приложении:
-    // this.taskService.updateTask(this.task.id, this.editedTask).subscribe(...)
-    
-    // Для демо:
-    setTimeout(() => {
-      if (this.task) {
-        Object.assign(this.task, this.editedTask);
+    this.taskService.updateTask(this.task.id, this.editedTask).subscribe({  // No need to cast as Task since updateTask accepts Partial<Task>
+      next: (updatedTask: Task) => {
+        this.task = updatedTask;
+        this.isEditing = false;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
       }
-      this.isEditing = false;
-      this.isLoading = false;
-    }, 800);
+    });
   }
 
   cancelEditing() {
